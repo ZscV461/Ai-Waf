@@ -1,0 +1,15 @@
+Timestamp,LogFile,URL,content,Method,Prediction
+05/22-00:05:22.100355,snort.log.1747861496,http://192.168.1.19/bWAPP/sqli_1.php?title=%27+or+1%3D1+%23&action=search,title=%27+or+1%3D1+%23&action=search,GET,Anomalous
+05/22-00:05:22.100355,snort.log.1747861496,http://192.168.1.19/bWAPP/sqli_1.php?title=%27+or+1%3D1+%23&action=search,title=%27+or+1%3D1+%23&action=search,GET,Anomalous
+05/22-00:05:22.100355,snort.log.1747861496,http://192.168.1.19/bWAPP/password_change.php,,GET,Anomalous
+05/22-00:05:22.100355,snort.log.1747861496,http://192.168.1.19/bWAPP/password_change.php,,GET,Anomalous
+05/22-00:05:22.100355,snort.log.1747861496,http://192.168.1.19/bWAPP/security_level_set.php,,GET,Anomalous
+05/22-00:05:22.100355,snort.log.1747861496,http://192.168.1.19/bWAPP/security_level_set.php,,GET,Anomalous
+05/22-00:05:22.100355,snort.log.1747861496,http://192.168.1.19/bWAPP/security_level_set.php,,POST,Anomalous
+05/22-00:05:22.100355,snort.log.1747861496,http://192.168.1.19/bWAPP/security_level_set.php,,POST,Anomalous
+05/22-00:05:22.100355,snort.log.1747861496,http://192.168.1.19/bWAPP/sqli_1.php,,GET,Anomalous
+05/22-00:05:22.100355,snort.log.1747861496,http://192.168.1.19/bWAPP/sqli_1.php,,GET,Anomalous
+05/22-00:05:22.100355,snort.log.1747861496,http://192.168.1.19/bWAPP/sqli_1.php?title=%27+or+1%3D1+%23&action=search,title=%27+or+1%3D1+%23&action=search,GET,Anomalous
+05/22-00:05:22.100355,snort.log.1747861496,http://192.168.1.19/bWAPP/sqli_1.php?title=%27+or+1%3D1+%23&action=search,title=%27+or+1%3D1+%23&action=search,GET,Anomalous
+05/22-00:05:22.100355,snort.log.1747861496,http://192.168.1.19/bWAPP/sqli_1.php?title=%27+or+%271%27%3D%271&action=search,title=%27+or+%271%27%3D%271&action=search,GET,Anomalous
+05/22-00:05:22.100355,snort.log.1747861496,http://192.168.1.19/bWAPP/sqli_1.php?title=%27+or+%271%27%3D%271&action=search,title=%27+or+%271%27%3D%271&action=search,GET,Anomalous

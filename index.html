@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snort Log Analysis</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+    <div class="container mx-auto p-4">
+        <h1 class="text-3xl font-bold text-center mb-6">Snort Log Analysis</h1>
+        <button id="processButton" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4">
+            Process Logs
+        </button>
+        <div id="error" class="text-red-500 hidden mb-4"></div>
+        <div id="summary" class="mb-4"></div>
+        <div class="overflow-x-auto">
+            <table id="resultsTable" class="min-w-full bg-white border border-gray-300 hidden">
+                <thead>
+                    <tr class="bg-gray-200">
+                        <th class="py-2 px-4 border">Timestamp</th>
+                        <th class="py-2 px-4 border">Log File</th>
+                        <th class="py-2 px-4 border">URL</th>
+                        <th class="py-2 px-4 border">Content</th>
+                        <th class="py-2 px-4 border">Method</th>
+                        <th class="py-2 px-4 border">Prediction</th>
+                    </tr>
+                </thead>
+                <tbody id="resultsBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('processButton').addEventListener('click', async () => {
+            const errorDiv = document.getElementById('error');
+            const summaryDiv = document.getElementById('summary');
+            const table = document.getElementById('resultsTable');
+            const tbody = document.getElementById('resultsBody');
+            
+            errorDiv.classList.add('hidden');
+            table.classList.add('hidden');
+            tbody.innerHTML = '';
+            summaryDiv.innerHTML = '';
+
+            try {
+                const response = await fetch('/process_logs');
+                const data = await response.json();
+
+                if (data.error) {
+                    errorDiv.textContent = data.error;
+                    errorDiv.classList.remove('hidden');
+                    return;
+                }
+
+                // Display summary
+                summaryDiv.innerHTML = `
+                    <p class="text-lg font-semibold">${data.message}</p>
+                    <p class="text-lg">Prediction Summary:</p>
+                    <ul class="list-disc pl-5">
+                        ${Object.entries(data.summary).map(([key, value]) => 
+                            `<li>${key}: ${value}</li>`
+                        ).join('')}
+                    </ul>
+                `;
+
+                // Display results
+                data.results.forEach(row => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td class="py-2 px-4 border">${row.Timestamp}</td>
+                        <td class="py-2 px-4 border">${row.LogFile}</td>
+                        <td class="py-2 px-4 border">${row.URL.substring(0, 100)}${row.URL.length > 100 ? '...' : ''}</td>
+                        <td class="py-2 px-4 border">${row.content.substring(0, 100)}${row.content.length > 100 ? '...' : ''}</td>
+                        <td class="py-2 px-4 border">${row.Method}</td>
+                        <td class="py-2 px-4 border ${row.Prediction === 'Anomalous' ? 'text-red-500' : 'text-green-500'}">${row.Prediction}</td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+
+                table.classList.remove('hidden');
+            } catch (err) {
+                errorDiv.textContent = 'Error fetching results: ' + err.message;
+                errorDiv.classList.remove('hidden');
+            }
+        });
+    </script>
+</body>
+</html>
